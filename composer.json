@@ -1,0 +1,17 @@
+{
+    "name": "nimah79/f3-simplecaptcha",
+    "description": "CAPTCHA Plugin for PHP Fat-Free Framework",
+    "keywords": ["PHP","F3","fatfree","catpcha","gd","imagick"],
+    "homepage": "https://github.com/nimah79/f3-simplecaptcha",
+    "license": "GPL-3.0",
+    "require": {
+        "php": ">=5.4.0",
+        "php-gd": "*"
+    },
+    "suggest": {
+         "php-imagick": "For better CAPTCHA image generation"
+    },
+    "autoload": {
+		"classmap": ["lib/"]
+    }
+}
