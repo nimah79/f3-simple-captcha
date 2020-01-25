@@ -1,25 +1,23 @@
 <?php
 
 /**
- * Simple Captcha for Fat-Free Framework
+ * Simple Captcha for Fat-Free Framework.
  *
  * @author  Jose Rodriguez <jose.rodriguez@exec.cl>
  * @author  Desuneko (added Imagick support)
  * @author  Nima HeydariNasab (added Fat-Free Framework support)
  * @license GPLv3
- * @link    https://github.com/nimah79/f3-simplecaptcha
- * @package captcha
- * @version 1.0
  *
+ * @link    https://github.com/nimah79/f3-simplecaptcha
+ *
+ * @version 1.0
  */
 
 /**
- * SimpleCaptcha class
- *
+ * SimpleCaptcha class.
  */
-class SimpleCaptcha
+class simplecaptcha
 {
-
     /** Width of the image */
     public $width = 210;
     /** Height of the image */
@@ -27,17 +25,16 @@ class SimpleCaptcha
     /** Dictionary word file (empty for random text) */
     public $wordsFile = 'words/en.php';
     /**
-     * Path for resource files (fonts, words, etc.)
+     * Path for resource files (fonts, words, etc.).
      *
      * 'resources' by default. For security reasons, is better move this
      * directory to another location outise the web server
-     *
      */
     public $resourcesPath = __DIR__.'/resources';
     /** Min word length (for non-dictionary random text generation) */
     public $minWordLength = 5;
     /**
-     * Max word length (for non-dictionary random text generation)
+     * Max word length (for non-dictionary random text generation).
      *
      * Used for dictionary words indicating the word-length
      * for font-size modification purposes
@@ -58,7 +55,7 @@ class SimpleCaptcha
     /** Horizontal line through the text */
     public $lineWidth = 0;
     /**
-     * Font configuration
+     * Font configuration.
      *
      * - font: TTF file
      * - spacing: relative pixel space between character
@@ -66,14 +63,14 @@ class SimpleCaptcha
      * - maxSize: max font size
      */
     public $fonts = [
-        'Antykwa' => ['spacing' => -3, 'minSize' => 27, 'maxSize' => 30, 'font' => 'AntykwaBold.ttf'],
-        'Candice' => ['spacing' => -1.5, 'minSize' => 28, 'maxSize' => 31, 'font' => 'Candice.ttf'],
+        'Antykwa'  => ['spacing' => -3, 'minSize' => 27, 'maxSize' => 30, 'font' => 'AntykwaBold.ttf'],
+        'Candice'  => ['spacing' => -1.5, 'minSize' => 28, 'maxSize' => 31, 'font' => 'Candice.ttf'],
         'DingDong' => ['spacing' => -2, 'minSize' => 24, 'maxSize' => 30, 'font' => 'Ding-DongDaddyO.ttf'],
-        'Duality' => ['spacing' => -2, 'minSize' => 30, 'maxSize' => 38, 'font' => 'Duality.ttf'],
+        'Duality'  => ['spacing' => -2, 'minSize' => 30, 'maxSize' => 38, 'font' => 'Duality.ttf'],
         'Heineken' => ['spacing' => -2, 'minSize' => 24, 'maxSize' => 34, 'font' => 'Heineken.ttf'],
-        'Jura' => ['spacing' => -2, 'minSize' => 28, 'maxSize' => 32, 'font' => 'Jura.ttf'],
+        'Jura'     => ['spacing' => -2, 'minSize' => 28, 'maxSize' => 32, 'font' => 'Jura.ttf'],
         'StayPuft' => ['spacing' => -1.5, 'minSize' => 28, 'maxSize' => 32, 'font' => 'StayPuft.ttf'],
-        'Times' => ['spacing' => -2, 'minSize' => 28, 'maxSize' => 34, 'font' => 'TimesNewRomanBold.ttf'],
+        'Times'    => ['spacing' => -2, 'minSize' => 28, 'maxSize' => 34, 'font' => 'TimesNewRomanBold.ttf'],
         'VeraSans' => ['spacing' => -1, 'minSize' => 20, 'maxSize' => 28, 'font' => 'VeraSansBold.ttf'],
     ];
 
@@ -88,13 +85,13 @@ class SimpleCaptcha
 
     /**
      * Internal image size factor (for better image quality)
-     * 1: low, 2: medium, 3: high
+     * 1: low, 2: medium, 3: high.
      */
     public $scale = 2;
 
     /**
      * Blur effect for better image quality (but slower image processing).
-     * Better image results with scale=3
+     * Better image results with scale=3.
      */
     public $blur = false;
 
@@ -107,7 +104,7 @@ class SimpleCaptcha
     /** GD image */
     public $im;
     public $useImageMagick = false;
-    
+
     /** Get image as <img> element with base64 string **/
     public $getImageAsBase64String = false;
 
@@ -145,10 +142,10 @@ class SimpleCaptcha
                 $draw = new ImagickDraw();
                 $draw->setFontSize(9);
                 $draw->setFillColor(new ImagickPixel('black'));
-                $this->im->annotateImage($draw, 10, 10, 0, $text . ' ' . $fontcfg['font'] . round((microtime(true) - $ini) * 1000) . 'ms');
+                $this->im->annotateImage($draw, 10, 10, 0, $text.' '.$fontcfg['font'].round((microtime(true) - $ini) * 1000).'ms');
             } else {
                 imagestring($this->im, 1, 1, $this->height - 8,
-                    $text . ' ' . $fontcfg['font'] . round((microtime(true) - $ini) * 1000) . 'ms',
+                    $text.' '.$fontcfg['font'].round((microtime(true) - $ini) * 1000).'ms',
                     $this->GdFgColor
                 );
             }
@@ -159,7 +156,7 @@ class SimpleCaptcha
     }
 
     /**
-     * Creates the image resources
+     * Creates the image resources.
      */
     protected function ImageAllocate()
     {
@@ -168,27 +165,27 @@ class SimpleCaptcha
                 $this->im->destroy();
             }
             $this->im = new Imagick();
-            $this->GdBgColor = new ImagickPixel('rgb(' .
-                $this->backgroundColor[0] . ', ' .
-                $this->backgroundColor[1] . ', ' .
-                $this->backgroundColor[2] . ')'
+            $this->GdBgColor = new ImagickPixel('rgb('.
+                $this->backgroundColor[0].', '.
+                $this->backgroundColor[1].', '.
+                $this->backgroundColor[2].')'
             );
             $this->im->newImage($this->width * $this->scale, $this->height * $this->scale, $this->GdBgColor);
             $this->im->setImageBackgroundColor($this->GdBgColor);
             $this->im->setImageMatteColor($this->GdBgColor);
             // Foreground color
-            $color = $this->colors[mt_rand(0, sizeof($this->colors) - 1)];
-            $this->GdFgColor = new ImagickPixel('rgb(' .
-                $color[0] . ', ' .
-                $color[1] . ', ' .
-                $color[2] . ')'
+            $color = $this->colors[mt_rand(0, count($this->colors) - 1)];
+            $this->GdFgColor = new ImagickPixel('rgb('.
+                $color[0].', '.
+                $color[1].', '.
+                $color[2].')'
             );
             // Shadow color
-            if (!empty($this->shadowColor) && is_array($this->shadowColor) && sizeof($this->shadowColor) >= 3) {
-                $this->GdShadowColor = new ImagickPixel('rgb(' .
-                    $this->shadowColor[0] . ', ' .
-                    $this->shadowColor[1] . ', ' .
-                    $this->shadowColor[2] . ')'
+            if (!empty($this->shadowColor) && is_array($this->shadowColor) && count($this->shadowColor) >= 3) {
+                $this->GdShadowColor = new ImagickPixel('rgb('.
+                    $this->shadowColor[0].', '.
+                    $this->shadowColor[1].', '.
+                    $this->shadowColor[2].')'
                 );
             }
         } else {
@@ -204,10 +201,10 @@ class SimpleCaptcha
             );
             imagefilledrectangle($this->im, 0, 0, $this->width * $this->scale, $this->height * $this->scale, $this->GdBgColor);
             // Foreground color
-            $color = $this->colors[mt_rand(0, sizeof($this->colors) - 1)];
+            $color = $this->colors[mt_rand(0, count($this->colors) - 1)];
             $this->GdFgColor = imagecolorallocate($this->im, $color[0], $color[1], $color[2]);
             // Shadow color
-            if (!empty($this->shadowColor) && is_array($this->shadowColor) && sizeof($this->shadowColor) >= 3) {
+            if (!empty($this->shadowColor) && is_array($this->shadowColor) && count($this->shadowColor) >= 3) {
                 $this->GdShadowColor = imagecolorallocate($this->im,
                     $this->shadowColor[0],
                     $this->shadowColor[1],
@@ -218,7 +215,7 @@ class SimpleCaptcha
     }
 
     /**
-     * Text generation
+     * Text generation.
      *
      * @return string Text
      */
@@ -228,11 +225,12 @@ class SimpleCaptcha
         if (!$text) {
             $text = $this->GetRandomCaptchaText();
         }
+
         return $text;
     }
 
     /**
-     * Random text generation
+     * Random text generation.
      *
      * @return string Text
      */
@@ -253,16 +251,18 @@ class SimpleCaptcha
             }
             $vocal = !$vocal;
         }
+
         return $text;
     }
 
     /**
-     * Random dictionary word generation
+     * Random dictionary word generation.
      *
-     * @param boolean $extended Add extended 'fake' words
+     * @param bool $extended Add extended 'fake' words
+     *
      * @return string Word
      */
-    function GetDictionaryCaptchaText($extended = false)
+    public function GetDictionaryCaptchaText($extended = false)
     {
         if (empty($this->wordsFile)) {
             return false;
@@ -271,7 +271,7 @@ class SimpleCaptcha
         if (substr($this->wordsFile, 0, 1) == '/') {
             $wordsfile = $this->wordsFile;
         } else {
-            $wordsfile = $this->resourcesPath . '/' . $this->wordsFile;
+            $wordsfile = $this->resourcesPath.'/'.$this->wordsFile;
         }
         if (!file_exists($wordsfile)) {
             return false;
@@ -298,11 +298,12 @@ class SimpleCaptcha
             }
             $text = implode('', $text);
         }
+
         return $text;
     }
 
     /**
-     * Horizontal line insertion
+     * Horizontal line insertion.
      */
     protected function WriteLine()
     {
@@ -331,7 +332,7 @@ class SimpleCaptcha
     }
 
     /**
-     * Text insertion
+     * Text insertion.
      */
     protected function WriteText($text, $fontcfg = [])
     {
@@ -340,7 +341,7 @@ class SimpleCaptcha
             $fontcfg = $this->fonts[array_rand($this->fonts)];
         }
         // Full path of font file
-        $fontfile = $this->resourcesPath . '/fonts/' . $fontcfg['font'];
+        $fontfile = $this->resourcesPath.'/fonts/'.$fontcfg['font'];
         /** Increase font-size for shortest words: 9% for each glyp missing */
         $lettersMissing = $this->maxWordLength - strlen($text);
         $fontSizefactor = 1 + ($lettersMissing * 0.09);
@@ -380,7 +381,6 @@ class SimpleCaptcha
                     $x, $y,
                     $this->GdFgColor, $fontfile, $letter);
 
-
                 $x += ($coords[2] - $x) + ($fontcfg['spacing'] * $this->scale);
             }
         }
@@ -388,7 +388,7 @@ class SimpleCaptcha
     }
 
     /**
-     * Wave filter
+     * Wave filter.
      */
     protected function WaveImage()
     {
@@ -420,7 +420,7 @@ class SimpleCaptcha
     }
 
     /**
-     * Reduce the image to the final size
+     * Reduce the image to the final size.
      */
     protected function ReduceImage()
     {
@@ -439,7 +439,7 @@ class SimpleCaptcha
     }
 
     /**
-     * File generation
+     * File generation.
      */
     protected function WriteImage()
     {
@@ -449,7 +449,7 @@ class SimpleCaptcha
             }
             $this->im->setImageFormat('png');
             if ($this->getImageAsBase64String) {
-                echo '<img src=\'data:image/jpg;base64,' . base64_encode($this->im->getImageBlob()) . '\' alt=\'Captcha\'/>';
+                echo '<img src=\'data:image/jpg;base64,'.base64_encode($this->im->getImageBlob()).'\' alt=\'Captcha\'/>';
             } else {
                 header('Content-type: image/png');
                 echo $this->im->getImageBlob();
@@ -466,7 +466,7 @@ class SimpleCaptcha
     }
 
     /**
-     * Cleanup
+     * Cleanup.
      */
     protected function Cleanup()
     {
@@ -476,5 +476,4 @@ class SimpleCaptcha
             imagedestroy($this->im);
         }
     }
-
 }
